@@ -1,4 +1,4 @@
-# SparstanBoogie-CVE-2024-44258-
+# SparstanBoogie-CVE-2024-44258
 Based on CVE-2024-44258
 
 SparstanBoogie was tested on  iOS/iPadOS 15.2 - 16.7 RC (20H18) and 17.0.
