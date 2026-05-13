@@ -1,16 +1,9 @@
-"""The Sparstan Boogie.
-
-Archive/student build reconstructed from Python 3.12 bytecode of
-sparse.pyc.
-"""
+"""The Sparstan Boogie."""
 
 import os
 import sys
 import urllib.parse as urllib
 import traceback
-import importlib.abc
-import importlib.util
-import types
 import asyncio
 import inspect
 import time
@@ -21,7 +14,7 @@ from tempfile import TemporaryDirectory
 
 if sys.version_info[:2] != (3, 12):
     print(
-        "This script expects Python 3.12 because the bundled PYZ archive was built for 3.12 bytecode."
+        "This script expects Python 3.12."
     )
     print(f"Current interpreter: {sys.version.split()[0]}")
     print("Run with: /usr/local/bin/python3.12 sparse_tool/main.py")
@@ -30,7 +23,6 @@ if sys.version_info[:2] != (3, 12):
 
 MISSING_DEPS = []
 MISSING_DEP_ERRORS = {}
-_PYZ_IMPORTER_ERROR = None
 _SYNC_LOOP = None
 PYMOBILEDEVICE3_VERSION = None
 
@@ -71,7 +63,7 @@ def _print_intro():
     )
     print(
         _c(
-            "Archive note: educational compatibility build for class and student documentation.",
+            "Source reconstruction build.",
             C.CYAN,
         )
     )
@@ -173,66 +165,10 @@ def _sanitize_shadowed_stdlib():
     __import__("struct")
 
 
-def _bootstrap_pyinstaller_imports():
-    root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    internal = os.path.join(root, "_internal")
-    pyz_path = os.path.join(root, "PYZ.pyz")
-    if not os.path.isfile(pyz_path):
-        return
-
-    # Avoid mixing bundled native modules with host Python by default.
-    # Set USE_BUNDLED_INTERNAL=1 only if you explicitly want those paths.
-    if os.environ.get("USE_BUNDLED_INTERNAL") == "1" and os.path.isdir(internal):
-        extra_paths = [
-            internal,
-            os.path.join(internal, "python3.12"),
-            os.path.join(internal, "python3.12", "lib-dynload"),
-        ]
-        for p in extra_paths:
-            if os.path.isdir(p) and p not in sys.path:
-                sys.path.insert(0, p)
-
-    try:
-        # Prefer local loader copy to avoid requiring PyInstaller as a pip dep.
-        from pyimod01_archive import ZlibArchiveReader
-    except Exception:
-        try:
-            from PyInstaller.loader.pyimod01_archive import ZlibArchiveReader
-        except Exception:
-            return
-
-    archive = ZlibArchiveReader(pyz_path, 0, check_pymagic=False)
-
-    class _PYZFinder(importlib.abc.MetaPathFinder, importlib.abc.Loader):
-        def find_spec(self, fullname, path=None, target=None):
-            if not (fullname == "exploit" or fullname.startswith("exploit.")):
-                return None
-            if fullname not in archive.toc:
-                return None
-            is_pkg = bool(archive.toc[fullname][0] in (1, 3))
-            return importlib.util.spec_from_loader(fullname, self, is_package=is_pkg)
-
-        def create_module(self, spec):
-            return None
-
-        def exec_module(self, module):
-            code = archive.extract(module.__name__)
-            if not isinstance(code, types.CodeType):
-                raise ImportError(f"Unable to load module from PYZ: {module.__name__}")
-            module.__file__ = f"{pyz_path}:{module.__name__}"
-            if module.__spec__ and module.__spec__.submodule_search_locations is not None:
-                module.__path__ = [f"{pyz_path}:{module.__name__}"]
-            exec(code, module.__dict__)
-
-    if not any(type(h).__name__ == "_PYZFinder" for h in sys.meta_path):
-        sys.meta_path.insert(0, _PYZFinder())
-
-
 try:
     _sanitize_shadowed_stdlib()
-    _bootstrap_pyinstaller_imports()
-except Exception as e:
-    _PYZ_IMPORTER_ERROR = e
+except Exception:
+    pass
 
 try:
     from exploit.restore import restore_file
@@ -743,15 +679,6 @@ def _asyncio_exception_handler(loop, context):
 
 def main():
     _print_intro()
-
-    if _PYZ_IMPORTER_ERROR is not None:
-        print(
-            _c(
-                f"Failed to initialize PYZ importer: {_PYZ_IMPORTER_ERROR}",
-                C.RED,
-            )
-        )
-        sys.exit(1)
 
     if MISSING_DEPS:
         print(
