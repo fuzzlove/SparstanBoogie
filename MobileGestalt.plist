@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>BuildVersion</key>
+    <string>TEST_BUILD_0001</string>
+
+    <key>ProductType</key>
+    <string>iPhoneXX,YY</string>
+
+    <key>ProductVersion</key>
+    <string>99.9</string>
+
+    <key>SerialNumber</key>
+    <string>TESTSERIAL000000</string>
+
+    <key>UniqueDeviceID</key>
+    <string>0000000000000000000000000000000000000000</string>
+
+    <key>WiFiAddress</key>
+    <string>00:11:22:33:44:55</string>
+
+    <key>BluetoothAddress</key>
+    <string>00:11:22:33:44:66</string>
+
+    <key>ModelNumber</key>
+    <string>TEST/A</string>
+
+    <key>RegionInfo</key>
+    <string>LL/A</string>
+
+    <key>IsInternalBuild</key>
+    <false/>
+
+    <key>Note</key>
+    <string>Example test-only MobileGestalt values. Replace with real values if needed.</string>
+</dict>
+</plist>
