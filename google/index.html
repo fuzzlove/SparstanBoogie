@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Internal Chrome Deployment</title>
+  <meta name="description" content="Internal Google Chrome deployment portal with transparent links, audit notes, and release history." />
+  <style>
+    :root {
+      --bg-1: #eef6ff;
+      --bg-2: #f8fbff;
+      --card: #ffffff;
+      --text: #102038;
+      --muted: #5a6b86;
+      --primary: #0b57d0;
+      --primary-hover: #0948ab;
+      --line: #d9e4f2;
+      --ok: #0b7a39;
+      --warn: #8a5a00;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font: 16px/1.5 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 36px auto;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(16, 32, 56, 0.08);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    h1, h2 { margin: 0 0 10px; }
+    h1 { font-size: 1.7rem; }
+    h2 { font-size: 1.15rem; }
+
+    p { margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-weight: 600;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-secondary {
+      color: var(--primary);
+      background: #fff;
+      border-color: var(--line);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 8px 14px;
+      margin-top: 8px;
+    }
+
+    .label {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    code {
+      background: #f2f7ff;
+      border: 1px solid #e2ebf8;
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      word-break: break-all;
+    }
+
+    .status-ok { color: var(--ok); font-weight: 700; }
+
+    .audit-note {
+      border-left: 4px solid var(--warn);
+      background: #fff8e9;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .changelog {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .changelog li { margin: 8px 0; }
+
+    footer {
+      font-size: 0.92rem;
+      color: var(--muted);
+      text-align: center;
+      padding: 4px 0 24px;
+    }
+
+    @media (max-width: 620px) {
+      .grid { grid-template-columns: 1fr; }
+      .label { margin-top: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>Google Chrome (Internal Deployment)</h1>
+      <p class="muted">
+        Internal software portal maintained by IT. Destinations are explicitly labeled.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-secondary" href="https://google.com/chrome" target="_blank" rel="noopener noreferrer">
+          Official Chrome Page
+        </a>
+        <a class="btn btn-primary" href="https://intranet.example.com/software/chrome/ChromeInstaller.exe">
+          Internal Installer Download
+        </a>
+      </div>
+
+      <div class="grid" aria-label="Release metadata">
+        <div class="label">Version</div>
+        <div>000.0.0000.00</div>
+
+        <div class="label">SHA-256</div>
+        <div><code>PASTE_SHA256_HASH_HERE</code></div>
+
+        <div class="label">Approved</div>
+        <div><span class="status-ok">Yes - IT Security Reviewed</span></div>
+
+        <div class="label">Published</div>
+        <div>2026-05-23</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Download Audit Note</h2>
+      <div class="audit-note">
+        <p>
+          Internal download links are logged for operational security and troubleshooting.
+          Logs include timestamp, requesting user, and requested file path.
+        </p>
+        <p class="muted">
+          No hidden redirects are used on this page. Link labels match their true destinations.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Changelog</h2>
+      <ol class="changelog">
+        <li><strong>2026-05-23:</strong> Initial GitHub Pages release with transparent official/internal links.</li>
+        <li><strong>YYYY-MM-DD:</strong> Updated Chrome version and hash.</li>
+        <li><strong>YYYY-MM-DD:</strong> Updated installer path after storage migration.</li>
+      </ol>
+    </section>
+
+    <footer>
+      Support: it-help@example.com
+    </footer>
+  </main>
+</body>
+</html>
